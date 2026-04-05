@@ -127,10 +127,13 @@ export default function GlassySignInForm() {
         {oauthLoading ? 'Redirecting…' : 'Continue with Google'}
       </button>
 
-      <button className="w-full flex items-center justify-center gap-2 border border-gray-200 py-2 rounded-lg hover:bg-white/30 transition font-medium text-white backdrop-blur-md bg-white/20">
-        <FaApple className="w-5 h-5" />
-        Continue with Apple
-      </button>
+      <button
+  disabled
+  className="w-full flex items-center justify-center gap-2 border border-gray-200 py-2 rounded-lg font-medium text-white/40 backdrop-blur-md bg-white/10 cursor-not-allowed"
+>
+  <FaApple className="w-5 h-5" />
+  Continue with Apple
+</button>
 
       <p className="text-sm text-gray-300 text-center mt-6">
         Don&apos;t have an account?{' '}

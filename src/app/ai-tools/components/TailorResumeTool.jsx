@@ -102,7 +102,7 @@ function FullscreenViewer({
       {/* panel */}
       <div className="relative w-[94vw] h-[94vh] mx-auto my-[3vh] rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-4 flex flex-col">
         {/* top bar */}
-        <div className="flex items-center justify-between mb-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveView('original')}
@@ -153,10 +153,10 @@ function FullscreenViewer({
         {/* viewer: vertical only */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden">
           <div className="flex justify-center py-3">
-            <div
-              style={{ width: `${SHEET_W}px`, transform: `scale(${zoom})`, transformOrigin: 'top center' }}
-              className="bg-white text-black rounded-xl shadow-[0_25px_80px_rgba(0,0,0,0.45)] ring-1 ring-black/5"
-            >
+          <div
+  style={{ width: `min(${SHEET_W}px, 100%)`, transform: `scale(${zoom})`, transformOrigin: 'top center' }}
+  className="bg-white text-black rounded-xl shadow-[0_25px_80px_rgba(0,0,0,0.45)] ring-1 ring-black/5"
+>
               <div className="px-10 py-12 leading-[1.55] text-[13px]">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="font-extrabold text-blue-600">ResumeAI — {activeView === 'original' ? 'Original' : 'Tailored'}</div>
@@ -450,8 +450,7 @@ model: 'openai/gpt-oss-120b',
             <select
               value={projectId}
               onChange={(e) => loadFromProject(e.target.value)}
-              className="border border-white/15 rounded-lg px-3 py-2 text-sm bg-white/5 text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
+className="w-[160px] sm:w-auto border border-white/15 rounded-lg px-3 py-2 text-sm bg-white/5 text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500"            >
               <option value="" className="bg-[#0f1520]">— Select a project —</option>
               {projects.map(p => <option key={p.id} value={p.id} className="bg-[#0f1520]">{p.name}</option>)}
             </select>
@@ -544,16 +543,14 @@ model: 'openai/gpt-oss-120b',
           <div className="flex justify-center">
           <div
   className="
-    w-[300px]
-    md:w-[816px]
+    w-full max-w-[816px]
     bg-white text-black rounded-xl
     shadow-[0_25px_80px_rgba(0,0,0,0.45)]
     ring-1 ring-black/5
   "
 
 >
-
-              <div className="px-10 py-12 leading-[1.55] text-[13px]">
+<div className="px-4 sm:px-10 py-6 sm:py-12 leading-[1.55] text-[13px]">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="font-extrabold text-blue-600">ResumeAI — {activeView === 'original' ? 'Original' : 'Tailored'}</div>
                   <span className="ml-auto text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">

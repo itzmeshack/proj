@@ -1,6 +1,16 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
+
+
+
+
+
+
+
+
+
+
 export default function Hero() {
   const heroRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
@@ -33,7 +43,7 @@ export default function Hero() {
         <p className="text-lg mb-6 max-w-xl mx-auto">
           Use AI and NLP to improve your resume and increase your chances of landing your dream job.
         </p>
-        <a href="/signin">
+        <a href="/signup">
           <button className="bg-white text-black hover:bg-gray-200 font-semibold px-6 py-3 rounded-md">
             Get Started
           </button>
@@ -42,3 +52,7 @@ export default function Hero() {
     </section>
   );
 }
+
+
+
+

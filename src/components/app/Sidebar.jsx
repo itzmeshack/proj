@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -58,23 +58,28 @@ function NavLinks({ collapsed }) {
 
 export default function Sidebar({ variant = 'desktop', open = false, onClose }) {
 
-const [collapsed, setCollapsed] = useState(() => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('sidebar-collapsed') === 'true';
-  }
-  return false;
-});
+  const [collapsed, setCollapsed] = useState(() =>
+    typeof window !== 'undefined'
+      ? localStorage.getItem('sidebar-collapsed') === 'true'
+      : false
+  );
+
+  const toggle = () => {
+    const next = !collapsed;
+    setCollapsed(next);
+    localStorage.setItem('sidebar-collapsed', String(next));
+    document.documentElement.style.setProperty('--sidebar-w', next ? '4rem' : '16rem');
+  };
 
   if (variant === 'desktop') {
     return (
-      <aside
-        className={`hidden md:flex md:flex-col transition-[width] duration-300
-        ${collapsed ? 'md:w-16' : 'md:w-64'}
-        md:border-r md:border-gray-200 md:bg-white md:min-h-screen`}
-      >
+     <aside
+  suppressHydrationWarning
+  className={`hidden md:flex md:flex-col transition-[width] duration-300
+  ${collapsed ? 'md:w-16' : 'md:w-64'}
+  md:border-r md:border-gray-200 md:bg-white md:min-h-screen`}
+>
         <div className="px-4 py-4 border-b border-gray-200 flex items-center justify-between">
-          
-          {/* Always render logo (never conditionally remove) */}
           <Link
             href="/"
             className={`font-extrabold text-lg tracking-tight text-blue-600 transition-opacity ${
@@ -85,11 +90,7 @@ const [collapsed, setCollapsed] = useState(() => {
           </Link>
 
           <button
-            onClick={() => {
-              const next = !collapsed;
-              setCollapsed(next);
-              localStorage.setItem('sidebar-collapsed', next);
-            }}
+            onClick={toggle}
             className="p-1 rounded-lg hover:bg-gray-100 transition"
           >
             <ChevronRight
@@ -108,12 +109,24 @@ const [collapsed, setCollapsed] = useState(() => {
   }
 
   // Mobile
-  if (!open) return null;
-
   return (
-    <div className="md:hidden fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
-      <aside className="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-xl border-r border-gray-200 flex flex-col">
+    <div
+      className={`md:hidden fixed inset-0 z-50 transition-all duration-300 ${
+        open ? 'pointer-events-auto' : 'pointer-events-none'
+      }`}
+    >
+      <div
+        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
+          open ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={onClose}
+      />
+      <aside
+        className={`absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-xl border-r border-gray-200 flex flex-col
+          transition-transform duration-300 ${
+          open ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
         <div className="px-4 py-4 border-b border-gray-200 flex items-center justify-between">
           <Link href="/" className="font-extrabold text-lg tracking-tight text-blue-600">
             ResumeAI

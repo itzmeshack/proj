@@ -23,11 +23,10 @@ export default function RootLayout({ children }) {
           strategy="beforeInteractive"
         />
       </head>
-      <body>
-        {children}
-        <CookieBanner/>
-   
-      </body>
+  <body>
+  {children}
+  <CookieBanner/>
+</body>
     </html>
   );
 }
